@@ -1,0 +1,28 @@
+/*Desenvolver uma função recursiva
+que exiba todos os múltiplos do número N,
+inferiores ao valor V*/
+
+
+for(i=1;i<V;i++)
+{
+	if(i%n==0)
+	{
+		printf(" %d ", i);
+	}
+}
+
+void multiplos ( int n, int V)
+int i=V;
+
+if(i>V)
+{
+	return;
+}
+else
+{
+	if(i%n==0)
+	{
+		printf(" %d ", i);
+	}
+	multiplos(i,V-1);
+}
