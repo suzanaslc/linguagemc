@@ -1,0 +1,219 @@
+#include <stdio.h>
+
+//declaração de funções
+int inserir(int cap, int quant, int vetor[]);
+void listar(int vetor[], int quant);
+int buscar(int busca, int quant, int vetor[]);
+int remover (int *quant,int vetor[]);
+
+//main
+float main()
+{
+	int cap=15, vetor[cap],opcao=0,k,v,i,quant=0,busca,j,apg;
+	
+//zerando o vetor	
+	for(i=0;i<cap;i++)
+	{
+		vetor[i]=0;
+	}
+//condicional do menu
+	while(opcao!=6)
+	{
+		printf("\n1-) Inserir um novo numero");
+		printf("\n2-) Remover valor (todas as ocorrencias serao removidas)");
+		printf("\n3-) Alterar valores");
+		printf("\n4-) Buscar numero");
+		printf("\n5-) Exibir todos os elementos");
+		printf("\n6-) Sair\n");
+		scanf("%d", &opcao);
+		
+		switch (opcao)
+		{
+			case 1:
+				k=inserir(cap, quant, vetor);
+				
+				if (k==0)
+				{
+					printf("O vetor nao tem mais espaço.");
+				}
+				if (k==2)
+				{
+					printf("O numero solicitado ja existe.");
+				}
+				else 
+				{
+					quant++;
+				}
+				
+				
+			break;
+			case 2:
+				//remover();
+				apg=remover (&quant,vetor);
+				if(apg==0)
+				{
+					printf("\n Numero nao consta na lista\n");
+				}
+				else
+				{
+					printf("\n Numero deletado %d vezes do vetor.\n", apg);
+				}
+			break;
+			case 3:
+				//alterar();
+				apg=remover (&quant,vetor);
+				if(apg==0)
+				{
+					printf("\n Numero nao consta na lista\n");
+				}
+				else
+				{
+					printf("\n Numero deletado com sucesso.\n Proxima etapa:\n");
+				}
+				
+				k=inserir(cap, quant, vetor);
+				
+				if (k!=0)
+				{
+					quant++;
+				}
+			break;	
+			case 4:
+				//buscar();
+				printf("Entre com o numero que deseja buscar:");
+				scanf("%d",&busca);
+				
+				v=buscar(busca,quant,vetor);
+				if(v==(-1))
+				{
+					printf("\nPosicao inexistente\n");
+				}
+				else
+				{
+					printf("\n %da posicao.\n", j);
+				}
+				
+			break;
+			case 5:
+				listar(vetor, quant);
+			break;
+			case 6:
+			break;
+			default:
+				printf("\nOpcao inválida!\n");
+		}
+	}
+	
+}
+//função inserir
+int inserir(int cap, int quant, int vetor[])
+{
+	int num,j, i,q;
+	
+	if(quant==cap)  //se ja tiver cheio nao entra
+	{
+		return 0;
+	}
+	else
+	{
+		printf("\nInsira numero:\n");  //chama o numero
+		scanf("%d", &num);
+	}
+		if(quant == 0)
+		{
+			vetor[0] = num;
+			return 1;
+		}
+		for(i=0;i<quant;i++)
+		{
+			if(vetor[i] == num)
+			{
+				return 2;
+			}
+		}
+
+		for(j=(quant-1);j>=0;j--)
+		{
+			if(num%2 != 0)
+			{
+				vetor[j+1]=num;
+				return 1;
+			}
+			else
+			{
+				if(vetor[j]%2 != 2)
+				{
+					vetor[j+1] = vetor[j];
+					vetor[j] = num;
+				}
+				else
+				{
+					vetor[j+1] = num;
+					return 1;
+				}
+			}
+		}
+}
+
+//função listar
+void listar(int vetor[], int quant)
+{
+	int i;
+	
+	if(quant==0)
+	{
+		printf("\nLista vazia.\n");
+	}
+	else
+	{
+		for(i=0;i<quant;i++)
+		{
+			printf("\n%d: %d", i+1, vetor[i]);
+		}
+		printf("\n");
+	}
+}
+	//função buscar
+int buscar(int busca, int quant, int vetor[])
+{
+	int j;
+	for(j=0;j<quant;j++)
+	{
+		if(busca==vetor[j])
+		{
+			return j;
+		}
+	}
+	return (-1);
+}
+
+//função remover
+int remover (int *quant,int vetor[])
+{
+	int rem,i,cont=0,j;
+	
+	printf("\nQual numero deseja remover todas as ocorrencias?");
+	scanf("%d",&rem);
+	
+	for(i=0;i<(*quant);) //i indicador de posicao
+	{ 
+		if (vetor[i]==rem)
+		{
+			j=i;
+			while (vetor[j]==rem)
+			{
+				vetor[j]=vetor[j+1];
+				j++;
+			}
+				(*quant)--;
+				cont++;
+		}
+		
+		else
+		{
+			i++;
+		}
+			
+	} 
+	return cont;
+}
