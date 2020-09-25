@@ -1,0 +1,37 @@
+/*Fazer uma função recursiva que,
+dado um número inteiro N, exiba o mesmo na
+base 2 (binária).*/
+#include <stdio.h>
+
+void binario (int n);
+void main()
+{
+	int n;
+	printf("Entre com um número: ");
+	scanf("%d", &n);
+	
+	binario(n);
+}
+
+
+void binario (int n)
+{
+	
+	int result;
+	
+	if(n==0||n==1)
+{
+	printf("%d",n);
+	return;
+}
+else
+{
+	binario (n/2); //chama-se a função antes de printar para aproveitar o recurso de memória e conseguir printar de maneira decrescente.
+	
+	result=(n%2);
+	printf("%d",result);
+	
+
+}
+
+}
