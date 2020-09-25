@@ -1,0 +1,141 @@
+*Exercício:
+
+Considere a existência de um vetor no qual cada posição pode armazenar o nome do aluno,
+as notas de AV1 e AV2, sua média e a situação (aprovado, reprovado ou em AVF). Pede-se:
+
+- A declaração do vetor, assim como de todos os tipos de dados necessários, caso
+existam;
+
+- Uma função que leia os dados de todos os alunos da turma;
+
+- Uma função que calcule a média de cada aluno (e a armazene no vetor), assim como a
+sua situação;
+
+- Uma função que, dado um número inteiro (1-aprovado;2-reprovado;3-em AVF), exiba
+todos os alunos que estão nesta situação.*/
+
+#include <stdio.h>
+#include <string.h>
+#define TAM 30
+#define NUM 3
+
+//TPrimeirastruct  - nome do struct
+
+/*typedef struct {
+int numero1;
+float numero2;
+char c;
+char string1[10];
+}TPrimeirastruct;*/
+
+
+typedef struct
+{
+	char nome [TAM];
+	float av1;
+	float av2;
+	float media;
+	char situacao[TAM];
+} TDadosdoaluno;
+void preencher (TDadosdoaluno turma[]);
+void calcmedia (TDadosdoaluno turma[]);
+void exibir(TDadosdoaluno turma[]);
+int main ()
+{
+	TDadosdoaluno turma[NUM]; //declaração do vetor turma com tipo "struct"
+
+	preencher (turma);
+	calcmedia (turma);
+	exibir(turma);
+
+}
+
+void preencher (TDadosdoaluno turma[])
+{
+	int i;
+	for(i=0;i<NUM;i++)
+	{
+		fflush(stdin);
+		printf("Entre com o nome do aluno: ");
+		gets(turma[i].nome);
+		
+		printf("\nEntre com a nota av1: ");
+		scanf("%f",&turma[i].av1);
+		
+		printf("\nEntre com a nota av2: ");
+		scanf("%f",&turma[i].av2);
+	}
+}
+
+void calcmedia (TDadosdoaluno turma[])
+{
+	int i;
+	for(i=0;i<NUM;i++)
+	{
+		turma[i].media=(turma[i].av1+turma[i].av2)/2;
+		
+		if(turma[i].media>=6)
+		{
+			strcpy(turma[i].situacao,"aprovado");
+		}
+		
+		else if (turma[i].media>=4)
+		{
+			strcpy(turma[i].situacao,"AVF");
+		}
+		else
+		{
+			strcpy(turma[i].situacao,"reprovado");
+
+		}
+	}
+}
+
+void exibir(TDadosdoaluno turma[])
+{
+	int menu;
+	int i;
+	
+	do {
+	
+	printf("\n\nEntre com a opcao: \n \t 1 - Aprovados \n \t 2 - AVF \n\t 3- Reprovado \n");
+	scanf("%d",&menu);
+	
+	switch (menu)
+	{
+		printf("to dentro");
+		
+		case 1:
+		for(i=0;i<NUM;i++)
+		{
+			if(strcmp("aprovado",turma[i].situacao)==0)  //se a comparação der zero
+			{
+				printf("%s",turma[i].nome);
+			}
+		}
+		break;
+	
+		case 2:
+		for(i=0;i<NUM;i++)
+		{
+			if(strcmp(turma[i].situacao,"AVF")==0)  //se a comparação der zero
+			{
+				printf("%s",turma[i].nome);
+			}
+		}
+		break;
+	
+		default:
+		for(i=0;i<NUM;i++)
+		{
+			if(strcmp(turma[i].situacao,"reprovado")==0)  //se a comparação der zero
+			{
+				printf("%s",turma[i].nome);
+			}
+		}
+		
+	} 
+	
+	} while(menu!=0);
+	
+}
